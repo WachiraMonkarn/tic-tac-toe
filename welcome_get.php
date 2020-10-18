@@ -1,7 +1,36 @@
 
 <!DOCTYPE html>
 <html>
+
+<head>
+<style>
+div {
+    text-align: center;
+    height: 35px;
+    width: 35px;
+    background-color: powderblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+</style>
+</head>
+
 <body>
+
+<h1>Tic Tac Toe</h1>
+<p id="turn">Turn: 1</p>
+<p id="player">Player: 1 </p>
+
+
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,38 +40,19 @@
 
 <?php  
 $number = $_GET["name"]; 
-// echo $number;
-
-$is_end = 0;
-
-$win_count = 0;
 
 function show_board ($num) {
-    $turn = 1;
-    $status = array();
-        echo "<br> Turn: ".$turn."<br>";
-
-    if($turn%2 == 1){
-        echo "Player1 <br>";
-        is_win();
-    }
-    if($turn%2 == 0 ){
-        echo "player2 <br>";
-        is_win();
-    }
     
     for ($i = 0; $i < $num; $i++) {
         for($j = 0; $j < $num; $j++){
             $status[$i][$j] = 0 ;
-            // echo "||| $i"."$j ";
             echo "
-            <div id='$i$j' onclick='test(this.id,this.value)' class='btn'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>'
+            
+            <div id='$i.$j' onclick='test(this.id,this.value)' class='btn'></div>
             ";
         }
         echo "<br><br>";
-        // $status[$i][$j] = 0 ;
       }
-     return json_encode($status);
 
     }
     
@@ -55,41 +65,31 @@ function show_board ($num) {
   show_board($number);
 
 
-// while($is_end==0){
-    
-
-    
-
-//     echo "<br> Turn: ".$turn."<br>";
-
-//     if($turn%2 == 1){
-//         echo "kao1 <br>";
-//         is_win();
-//     }
-//     if($turn%2 == 0 ){
-//         echo "kao2 <br>";
-//         is_win();
-//     }
-    
-
-//     $board = json_encode(show_board ($number));
-//     if($turn >= ($number*$number) || $win_count == $number ){
-//         $is_end = 1;
-//     }
-    
-//     $turn++;
-    
-// }
-
-
 ?><br>
 
 <script>
+
+    var turn = 1 ;
+    
+
     function test(id,value){
-        // alert(document.getElementById("00").id);
-        // document.querySelector('#00').innerHTML = 'Hide';
-        // document.getElementById("11").value = "New text!";
-        console.log(id+' '+value)
+        if(document.getElementById(id).innerHTML == "X" || document.getElementById(id).innerHTML == "O"){
+
+        }else{
+            if(turn%2 == 1){
+                document.getElementById(id).innerHTML = "X";
+                document.getElementById("player").innerHTML = "Player: 2";
+            }
+            if(turn%2 == 0 ){
+                document.getElementById(id).innerHTML = "O";
+                document.getElementById("player").innerHTML = "Player: 1";
+                
+            }
+            
+            turn++;
+            document.getElementById("turn").innerHTML = "Turn: " + turn;
+        }
+        // console.log(id+' '+value)
     }
 </script>
 
